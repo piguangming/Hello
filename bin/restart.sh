@@ -5,9 +5,6 @@ TOMCAT_HOME=/root/tomcat85
 bin=$(cd `dirname $0`; pwd)
 pid=$(ps aux | grep ${TOMCAT} | grep -v grep | grep -v restart | awk '{print $2}')
 
-echo ${bin}
-echo ${pid}
-
 if [ -n "${pid}" ]; then
     echo "Shutdown..."
     sh ${TOMCAT_HOME}/bin/catalina.sh stop 3
