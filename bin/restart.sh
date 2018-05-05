@@ -1,14 +1,19 @@
 #!/bin/sh
 
+TOMCAT=tomcat85
+TOMCAT_HOME=/root/tomcat85
 bin=$(cd `dirname $0`; pwd)
-pid=$(ps aux | grep tomcat | grep -v grep | grep -v restart | grep ${bin} | awk '{print $2}')
+pid=$(ps aux | grep ${TOMCAT} | grep -v grep | grep -v restart | awk '{print $2}')
+
+echo ${bin}
+echo ${pid}
 
 if [ -n "${pid}" ]; then
     echo "Shutdown..."
-    sh ${bin}/shutdown.sh
+    sh ${TOMCAT_HOME}/bin/catalina.sh stop 3
     sleep 3
 
-    pid=$(ps aux | grep tomcat | grep -v grep | grep -v restart | grep ${bin} | awk '{print $2}')
+    pid=$(ps aux | grep ${TOMCAT} | grep -v grep | grep -v restart | grep ${bin} | awk '{print $2}')
     if [ -n "${pid}" ]; then
         kill -9 ${pid}
         sleep 1
@@ -16,7 +21,7 @@ if [ -n "${pid}" ]; then
 fi
 
 echo "Startup..."
-sh ${bin}/startup.sh
+sh ${TOMCAT_HOME}/bin/startup.sh
 if [ "$1" = "-v" ]; then
-    tail -f ${bin}/../logs/catalina.out
+    tail -f ${TOMCAT_HOME}/logs/catalina.out
 fi

@@ -1,5 +1,4 @@
-#!/bin/sh
-
+TOMCAT_HOME=/root/tomcat85
 war=$1
 bin=$(cd `dirname $0`; pwd)
 
@@ -17,7 +16,7 @@ if [ ! "${war##*.}" = "war" ]; then
 fi
 
 echo "Deploy ${war##*/}..."
-rm -rf ${bin}/../webapps/ROOT/ && unzip -qo ${war} -d ${bin}/../webapps/ROOT/
-rm -rf ${bin}/../work/Catalina/localhost/
+rm -rf ${TOMCAT_HOME}/webapps/${war} && unzip -qo ${war} -d ${TOMCAT}/webapps/
+rm -rf ${TOMCAT_HOME}/work/Catalina/localhost/
 echo "Restart tomcat..."
 exec ${bin}/restart.sh
