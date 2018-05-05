@@ -1,4 +1,4 @@
-BUIID_ID=tomcat85
+BUILD_ID=tomcat85
 TOMCAT_HOME=/root/tomcat85
 war=$1
 bin=$(cd `dirname $0`; pwd)
